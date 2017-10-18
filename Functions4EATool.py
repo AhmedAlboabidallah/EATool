@@ -31,6 +31,9 @@ import shutil
 from shutil import copyfile
 import glob
 #1
+import skflow ##skflow is a Simplified interface for TensorFlow
+import tensorflow
+import tensorflow.contrib.learn as skflow
 
 def normalize(array1,maxmins='not'):
     try:
@@ -387,8 +390,13 @@ def iteration1(table1):#
         yy=np.array(list(map(lambda x:x[-1], xx)))
         xx=np.array(list(map(lambda x:x[0:-1], xx)))
         #
-        Reg = MLPRegressor(hidden_layer_sizes=Layers,  activation='relu', solver='adam', alpha=0.001, batch_size='auto',learning_rate='constant', learning_rate_init=0.01, power_t=0.5, max_iter=1000, shuffle=True,random_state=9, tol=0.0001, verbose=False, warm_start=False, momentum=0.9, nesterovs_momentum=True,early_stopping=False, validation_fraction=0.1, beta_1=0.9, beta_2=0.999, epsilon=1e-05)
-        Reg.fit(xx, yy) 
+        #Reg = MLPRegressor(hidden_layer_sizes=Layers,  activation='relu', solver='adam', alpha=0.001, batch_size='auto',learning_rate='constant', learning_rate_init=0.01, power_t=0.5, max_iter=1000, shuffle=True,random_state=9, tol=0.0001, verbose=False, warm_start=False, momentum=0.9, nesterovs_momentum=True,early_stopping=False, validation_fraction=0.1, beta_1=0.9, beta_2=0.999, epsilon=1e-05)
+        #Reg.fit(xx, yy) 
+        feature_columns = skflow.infer_real_valued_columns_from_input(xx)#skflow is a Simplified interface for TensorFlow 
+        Reg = skflow.DNNRegressor(feature_columns=feature_columns,hidden_units=Layers)
+        Reg.fit(xx, yy, steps=2000, batch_size=32)
+        R2=np.corrcoef([yy,Reg.predict(xx)])[0,1]
+        
         R2=np.corrcoef([yy,Reg.predict(xx)])[0,1]
         file1='C:/Users/ahalboabidallah/Desktop/Neural/'+str(randint(1000, 9999))+str(randint(1000, 9999))+'.pkl'
         Add_line_to_file('C:/Users/ahalboabidallah/Desktop/Neural/','files.csv',[file1])
@@ -1074,8 +1082,13 @@ def error_pridiction_tool(table1):#
         xx0=list(xx0)
         NumberOfLayers,Layers=model_spec[1:]
         #
-        Reg = MLPRegressor(hidden_layer_sizes=Layers,  activation='relu', solver='adam', alpha=0.001, batch_size='auto',learning_rate='constant', learning_rate_init=0.01, power_t=0.5, max_iter=1000, shuffle=True,random_state=9, tol=0.0001, verbose=False, warm_start=False, momentum=0.9, nesterovs_momentum=True,early_stopping=False, validation_fraction=0.1, beta_1=0.9, beta_2=0.999, epsilon=1e-05)
-        Reg.fit(xx0, stds) 
+        #Reg = MLPRegressor(hidden_layer_sizes=Layers,  activation='relu', solver='adam', alpha=0.001, batch_size='auto',learning_rate='constant', learning_rate_init=0.01, power_t=0.5, max_iter=1000, shuffle=True,random_state=9, tol=0.0001, verbose=False, warm_start=False, momentum=0.9, nesterovs_momentum=True,early_stopping=False, validation_fraction=0.1, beta_1=0.9, beta_2=0.999, epsilon=1e-05)
+        #Reg.fit(xx0, stds) 
+        feature_columns = skflow.infer_real_valued_columns_from_input(xx)#skflow is a Simplified interface for TensorFlow 
+        Reg = skflow.DNNRegressor(feature_columns=feature_columns,hidden_units=Layers)
+        Reg.fit(xx, yy, steps=2000, batch_size=32)
+        R2=np.corrcoef([yy,Reg.predict(xx)])[0,1]
+        
         R2=np.corrcoef([yy,Reg.predict(xx)])[0,1]
         file1='C:/Users/ahalboabidallah/Desktop/Neural/'+str(randint(1000, 9999))+str(randint(1000, 9999))+'.pkl'
         Add_line_to_file('C:/Users/ahalboabidallah/Desktop/Neural/','files.csv',[file1])
