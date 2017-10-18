@@ -465,10 +465,10 @@ def iteration1(table1):#
         Reg = KNeighborsRegressor(n_neighbors=2,weights =K_Nearest_Neighbours_weights)
         Reg.fit(xx, yy) 
         R2=np.corrcoef([yy,Reg.predict(xx)])[0,1]
-        file1='C:/Users/ahalboabidallah/Desktop/Random_Forest/'+str(randint(1000, 9999))+str(randint(1000, 9999))+'.pkl'
-        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/Random_Forest/','files.csv',[file1])
-        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/Random_Forest/','results_rsquared.csv',[R2])
-        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/Random_Forest/','maxmins.csv',[maxmins])
+        file1='C:/Users/ahalboabidallah/Desktop/k/'+str(randint(1000, 9999))+str(randint(1000, 9999))+'.pkl'
+        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/k/','files.csv',[file1])
+        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/k/','results_rsquared.csv',[R2])
+        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/k/','maxmins.csv',[maxmins])
         #read the last in the csv file
         #add line to the csv file
         #s = pickle.dumps(Reg)
@@ -1115,7 +1115,7 @@ def error_pridiction_tool(table1):#
         xx0,maxmins=normalize(xx0,maxmins=maxmins)
         xx0=list(xx0)
         Gaussian_Process_kernal=model_spec[1]
-        Reg = GaussianProcessRegressor(kernel=Gaussian_Process_kernal)
+        Reg = RandomForestRegressor(kernel=Gaussian_Process_kernal)
         Reg.fit(xx0, stds) 
         Reg = RandomForestRegressor(bootstrap=Random_Forest_Bootstrap)
         Reg.fit(xx0, stds) 
@@ -1141,10 +1141,10 @@ def error_pridiction_tool(table1):#
         Reg = KNeighborsRegressor(n_neighbors=2,weights =K_Nearest_Neighbours_weights)
         Reg.fit(xx0, stds) 
         R2=np.corrcoef([std,Reg.predict(xx0)])[0,1]
-        file1='C:/Users/ahalboabidallah/Desktop/Random_Forest/'+str(randint(1000, 9999))+str(randint(1000, 9999))+'.pkl'
-        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/Random_Forest/','files.csv',[file1])
-        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/Random_Forest/','results_rsquared.csv',[R2])
-        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/Random_Forest/','maxmins.csv',[maxmins])
+        file1='C:/Users/ahalboabidallah/Desktop/k/'+str(randint(1000, 9999))+str(randint(1000, 9999))+'.pkl'
+        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/k/','files.csv',[file1])
+        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/k/','results_rsquared.csv',[R2])
+        Add_line_to_file('C:/Users/ahalboabidallah/Desktop/k/','maxmins.csv',[maxmins])
         #read the last in the csv file
         #add line to the csv file
         #s = pickle.dumps(Reg)
